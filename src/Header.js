@@ -10,19 +10,26 @@ const HeaderContent = styled.div`
 `
 
 const HeaderTitle = styled.h1`
-  padding: 20px;
   font-size: 42px;
+  color: #4560e6;
 `
 
 const HeaderPrice = styled.h1`
-  padding: 20px;
+  padding: 0;
+  margin: 0;
+`
+
+const HeaderSubtitle = styled.h2`
+  font-size: 24px;
 `
 
 const Header = props => {
   return (
     <HeaderContent>
       <HeaderTitle>Nebulas Spaceship Race</HeaderTitle>
-      <HeaderPrice>600 NAS TO WIN</HeaderPrice>
+      <HeaderPrice>200 NAS FOR THE WINNING TEAM</HeaderPrice>
+      <HeaderSubtitle>First ship to reach 10000 Parsec is the winner</HeaderSubtitle>
+      <HeaderSubtitle>Choose your team and help it reach the final frontier</HeaderSubtitle>
     </HeaderContent>
   )
 }

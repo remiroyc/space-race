@@ -38,11 +38,21 @@ const Button = styled.button`
   text-transform: uppercase;
 `
 
+const Distance = styled.div`
+  font-family: 'LomoCopy LT W01 Midi', georgia;
+  font-size: 18px;
+  text-align: center;
+  width: 200px;
+  top: 300px;
+  position: absolute;
+`
+
 const Ship = props => {
   return (
     <div>
       <ShipContent color={props.color}>
         <Fire />
+        <Distance>2000 parsec</Distance>
         <Button>Buy gas</Button>
       </ShipContent>
     </div>
