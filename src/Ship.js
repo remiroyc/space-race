@@ -25,6 +25,12 @@ const Fire = styled.div`
   background: url(${fireAnim});
 `
 
+const Button = styled.button`
+  background: none;
+  box-shadow: none;
+  border: 3px solid white;
+`
+
 const Ship = props => {
   return (
     <div>
