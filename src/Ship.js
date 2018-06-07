@@ -28,7 +28,14 @@ const Fire = styled.div`
 const Button = styled.button`
   background: none;
   box-shadow: none;
+  color: white;
   border: 3px solid white;
+  font-family: 'LomoCopy LT W01 Midi', georgia;
+  position: absolute;
+  top: 240px;
+  left: 38px;
+  font-size: 20px;
+  text-transform: uppercase;
 `
 
 const Ship = props => {
@@ -36,6 +43,7 @@ const Ship = props => {
     <div>
       <ShipContent color={props.color}>
         <Fire />
+        <Button>Buy gas</Button>
       </ShipContent>
     </div>
   )
