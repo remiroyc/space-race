@@ -1,5 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "LomoCopy LT W01 Midi", georgia;
+}
+
+h1 {
+  font-family: "LomoCopy LT W01 Black", georgia;
 }

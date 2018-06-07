@@ -14,7 +14,7 @@ const particuleConfig = {
     number: { value: 200, density: { enable: true, value_area: 1000 } },
     color: { value: '#fff' },
     opacity: {
-      value: 0.5,
+      value: 0.3,
       random: true,
       anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
     },
@@ -32,7 +32,7 @@ const particuleConfig = {
     },
     move: {
       enable: true,
-      speed: 60,
+      speed: 40,
       direction: 'top',
       random: true,
       straight: true,
