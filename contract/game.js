@@ -6,11 +6,15 @@ const Game = function() {
 
   LocalContractStorage.defineProperty(this, 'players1Length')
   LocalContractStorage.defineProperty(this, 'players2Length')
+  LocalContractStorage.defineProperty(this, 'players3Length')
+  LocalContractStorage.defineProperty(this, 'players4Length')
 
   LocalContractStorage.defineMapProperty(this, 'distance')
   LocalContractStorage.defineMapProperty(this, 'gas')
   LocalContractStorage.defineMapProperty(this, 'playerBalance1')
   LocalContractStorage.defineMapProperty(this, 'playerBalance2')
+  LocalContractStorage.defineMapProperty(this, 'playerBalance3')
+  LocalContractStorage.defineMapProperty(this, 'playerBalance4')
   LocalContractStorage.defineMapProperty(this, 'playerChoice')
 }
 
@@ -19,6 +23,8 @@ Game.prototype = {
     this.owner = Blockchain.transaction.from
     this.distance.set(1, 0)
     this.distance.set(2, 0)
+    this.distance.set(3, 0)
+    this.distance.set(4, 0)
     this.finished = false
   },
 
@@ -28,12 +34,24 @@ Game.prototype = {
       price: this.globalBalance,
       ships: {
         1: {
+          country: 'US',
           players: this.players1Length,
           distance: this.distance.get(1)
         },
         2: {
+          country: 'CH',
           players: this.players2Length,
           distance: this.distance.get(2)
+        },
+        3: {
+          country: 'RU',
+          players: this.players2Length,
+          distance: this.distance.get(3)
+        },
+        4: {
+          country: 'EU',
+          players: this.players2Length,
+          distance: this.distance.get(4)
         }
       }
     }
@@ -46,20 +64,29 @@ Game.prototype = {
   getDistances: function() {
     return {
       1: this.distance.get(1),
-      2: this.distance.get(2)
+      2: this.distance.get(2),
+      3: this.distance.get(3),
+      4: this.distance.get(4)
     }
   },
 
   getPlayerDistance: function() {
     return {
       1: this.playerBalance1.get(Blockchain.transaction.from),
-      2: this.playerBalance2.get(Blockchain.transaction.from)
+      2: this.playerBalance2.get(Blockchain.transaction.from),
+      3: this.playerBalance3.get(Blockchain.transaction.from),
+      4: this.playerBalance4.get(Blockchain.transaction.from)
     }
   },
 
   getPlayerShipNumber: function() {
     const playerChoice = this.playerChoice.get(Blockchain.transaction.from)
-    if (playerChoice !== 1 && playerChoice !== 2) {
+    if (
+      playerChoice !== 1 &&
+      playerChoice !== 2 &&
+      playerChoice !== 3 &&
+      playerChoice !== 4
+    ) {
       throw new Error('You need to spending your gas first')
     }
     return playerChoice
@@ -97,6 +124,14 @@ Game.prototype = {
       _sendBalance(
         new BigNumber(this.playerBalance2.get(Blockchain.transaction.from))
       )
+    } else if (this.winner === 3) {
+      _sendBalance(
+        new BigNumber(this.playerBalance3.get(Blockchain.transaction.from))
+      )
+    } else if (this.winner === 4) {
+      _sendBalance(
+        new BigNumber(this.playerBalance4.get(Blockchain.transaction.from))
+      )
     }
   },
 
@@ -117,8 +152,22 @@ Game.prototype = {
       throw new Error('Game is finished')
     }
 
+    if (
+      shipNumber !== 1 &&
+      shipNumber !== 2 &&
+      shipNumber !== 3 &&
+      shipNumber !== 4
+    ) {
+      throw new Error('Invalid ship number')
+    }
+
     var playerChoice = this.playerChoice.get(Blockchain.transaction.from)
-    if (playerChoice === 1 || playerChoice === 2) {
+    if (
+      playerChoice === 1 ||
+      playerChoice === 2 ||
+      playerChoice === 3 ||
+      playerChoice === 4
+    ) {
       if (playerChoice !== shipNumber) {
         throw new Error('You cannot invest in both teams')
       }
@@ -161,6 +210,34 @@ Game.prototype = {
       var newDistance = previousDistance.plus(previousDistance)
       this.distance.set(2, newDistance)
       this.checkWinner(2)
+    } else if (shipNumber === 3) {
+      this.players3Length = players3Length + 1
+      var previousPlayerBalance = this.playerBalance3.get(
+        Blockchain.transaction.from
+      )
+      this.playerBalance3.set(
+        Blockchain.transaction.from,
+        previousPlayerBalance + distance
+      )
+      var previousDistance = this.distance.get(3)
+      var newDistance = previousDistance.plus(previousDistance)
+      this.distance.set(3, newDistance)
+      this.checkWinner(3)
+    } else if (shipNumber === 4) {
+      this.players4Length = players4Length + 1
+      var previousPlayerBalance = this.playerBalance4.get(
+        Blockchain.transaction.from
+      )
+      this.playerBalance4.set(
+        Blockchain.transaction.from,
+        previousPlayerBalance + distance
+      )
+      var previousDistance = this.distance.get(4)
+      var newDistance = previousDistance.plus(previousDistance)
+      this.distance.set(4, newDistance)
+      this.checkWinner(4)
     }
   }
 }
+
+module.exports = Game
