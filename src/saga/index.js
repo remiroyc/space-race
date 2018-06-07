@@ -1,4 +1,4 @@
-import { takeEvery, put } from 'redux-saga/effects'
+import { all, takeEvery, put } from 'redux-saga/effects'
 
 import { INIT_GAME } from '../constants/actionTypes'
 import { getGameInformations } from '../services/nebulas'
@@ -13,7 +13,7 @@ function* watchInitializeGame() {
 }
 
 function* rootSaga() {
-  yield [watchInitializeGame()]
+  yield all([watchInitializeGame()])
 }
 
 export default rootSaga

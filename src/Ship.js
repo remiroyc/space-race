@@ -52,7 +52,7 @@ const Ship = props => {
     <div>
       <ShipContent color={props.color}>
         <Fire />
-        <Distance>2000 parsec</Distance>
+        <Distance>2000/10000 PARSEC</Distance>
         <Button>Buy gas</Button>
       </ShipContent>
     </div>
