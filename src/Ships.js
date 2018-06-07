@@ -6,7 +6,7 @@ const ShipContainer = styled.div`
   position: absolute;
   width: 100%;
   z-index: 100;
-  top: 50%;
+  top: 45%;
 `
 
 const Ships = props => {

@@ -11,9 +11,9 @@ const ShipContent = styled.div`
   background: url(${props => (props.color === 'blue' ? blueShip : redShip)});
   background-size: 200px;
   position: absolute;
-  top: 0;
+  top: -100px;
   left: 50%;
-  margin-left: ${props => (props.color === 'blue' ? '-220px' : '220px')};
+  margin-left: ${props => (props.color === 'blue' ? '-420px' : '220px')};
 `
 
 const Fire = styled.div`
