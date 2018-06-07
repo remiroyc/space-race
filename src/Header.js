@@ -11,12 +11,18 @@ const HeaderContent = styled.div`
 
 const HeaderTitle = styled.h1`
   padding: 20px;
+  font-size: 42px;
+`
+
+const HeaderPrice = styled.h1`
+  padding: 20px;
 `
 
 const Header = props => {
   return (
     <HeaderContent>
       <HeaderTitle>Nebulas Spaceship Race</HeaderTitle>
+      <HeaderPrice>600 NAS TO WIN</HeaderPrice>
     </HeaderContent>
   )
 }
