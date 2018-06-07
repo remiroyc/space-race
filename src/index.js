@@ -4,13 +4,13 @@ import createSagaMiddleware from "redux-saga"
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware, compose } from "redux"
 
-import reducers from "./reducers"
+import reducers from "./reducers/index"
 import rootSaga from "./saga/index"
 import registerServiceWorker from "./registerServiceWorker"
+import { INIT_GAME } from "./constants/actionTypes"
 import App from "./App"
 
 import "./index.css"
-import { INIT_GAME } from "./constants/actionTypes"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const sagaMiddleware = createSagaMiddleware()

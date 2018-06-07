@@ -1,13 +1,19 @@
-import { fork, takeEvery, takeLatest, take } from "redux-saga/effects"
+import { all, takeEvery, put } from "redux-saga/effects"
 
 import { INIT_GAME } from "../constants/actionTypes"
 import { getGameInformations } from "../services/nebulas"
 
 function* initializeGame(action) {
   debugger
-  const result = yield* getGameInformations()
+  yield put({ type: "test" })
 }
 
-export default function* rootSaga() {
-  yield [takeEvery(INIT_GAME, initializeGame)]
+function* watchInitializeGame() {
+  yield takeEvery("INIT_GAME", initializeGame)
 }
+
+function* rootSaga() {
+  yield all([watchInitializeGame()])
+}
+
+export default rootSaga
