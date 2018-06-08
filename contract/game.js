@@ -147,7 +147,7 @@ Game.prototype = {
     this.gas.set(Blockchain.transaction.from, newGasValue)
   },
 
-  spendGas: function(distance, shipNumber) {
+  spendGas: function(distance, shipNumber, disadvantage) {
     if (this.finished === true) {
       throw new Error('Game is finished')
     }
@@ -194,8 +194,11 @@ Game.prototype = {
         previousPlayerBalance + distance
       )
       var previousDistance = this.distance.get(1)
-      var newDistance = previousDistance.plus(previousDistance)
-      this.distance.set(1, newDistance)
+      var newDistance = disadvantage
+        ? previousDistance.minus(previousDistance)
+        : previousDistance.plus(previousDistance)
+
+      this.distance.set(1, newDistance < 0 ? 0 : newDistance)
       this.checkWinner(1)
     } else if (shipNumber === 2) {
       this.players2Length = players2Length + 1
@@ -207,8 +210,11 @@ Game.prototype = {
         previousPlayerBalance + distance
       )
       var previousDistance = this.distance.get(2)
-      var newDistance = previousDistance.plus(previousDistance)
-      this.distance.set(2, newDistance)
+      var newDistance = disadvantage
+        ? previousDistance.minus(previousDistance)
+        : previousDistance.plus(previousDistance)
+
+      this.distance.set(2, newDistance < 0 ? 0 : newDistance)
       this.checkWinner(2)
     } else if (shipNumber === 3) {
       this.players3Length = players3Length + 1
