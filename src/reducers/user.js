@@ -1,5 +1,6 @@
 const initialState = {
-  distance: 0
+  distance: 0,
+  shipChoice: 1
 }
 
 function userReducer(state = initialState, action) {
