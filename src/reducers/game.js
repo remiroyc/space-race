@@ -1,3 +1,5 @@
+import { SET_GAME } from '../constants/actionTypes'
+
 const initialState = {
   finished: false,
   price: 0,
@@ -27,6 +29,13 @@ const initialState = {
 
 function gameReducer(state = initialState, action) {
   switch (action.type) {
+    
+    case SET_GAME:
+    return {
+      ...state,
+      ...action.game
+    }
+
     default:
       return state
   }

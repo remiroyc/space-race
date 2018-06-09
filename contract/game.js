@@ -79,6 +79,13 @@ Game.prototype = {
     }
   },
 
+  getUserInformations: function(user) {
+    return {
+      gas: this.gas.get(user),
+      ship: this.playerChoice.get(user)
+    }
+  },
+
   getPlayerShipNumber: function() {
     const playerChoice = this.playerChoice.get(Blockchain.transaction.from)
     if (
@@ -135,15 +142,24 @@ Game.prototype = {
     }
   },
 
-  buyGas: function() {
+  buyGas: function(quantity) {
     if (this.finished === true) {
       throw new Error('Game is finished')
     }
 
-    var currentGas = this.gas.get(Blockchain.transaction.from) || 0
+    if(quantity <= 0) {
+      throw new Error('Quantity is invalid')
+    }
+ 
     var value = new BigNumber(Blockchain.transaction.value)
-    var gas = value.modulo(0.01)
-    var newGasValue = currentGas + gas
+    var requiredPrice = new BigNumber(quantity * 0.01)
+
+    if(value.lt(requiredPrice)) {
+      throw new Error('Required min price (' + requiredPrice.toString() + ')')
+    }
+
+    var currentGas = this.gas.get(Blockchain.transaction.from) || 0
+    var newGasValue = currentGas + quantity
     this.gas.set(Blockchain.transaction.from, newGasValue)
   },
 

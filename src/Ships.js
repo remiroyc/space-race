@@ -1,6 +1,7 @@
 import React from 'react'
-import Ship from './Ship'
 import styled from 'styled-components'
+
+import Ship from './Ship'
 
 const ShipContainer = styled.div`
   position: absolute;
@@ -10,10 +11,11 @@ const ShipContainer = styled.div`
 `
 
 const Ships = props => {
+  console.log('props', props)
   return (
     <ShipContainer>
-      <Ship color="blue" />
-      <Ship color="red" />
+      <Ship {...props} country="US" color="blue" />
+      <Ship {...props} country="CN" color="red" />
     </ShipContainer>
   )
 }

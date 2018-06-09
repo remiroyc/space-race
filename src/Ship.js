@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import blueShip from './images/blue.png'
 import redShip from './images/red.png'
 import fireAnim from './images/fire.gif'
+import { buyGas } from './services/nebulas';
 
 const ShipContent = styled.div`
   width: 200px;
@@ -53,7 +54,7 @@ const Ship = props => {
       <ShipContent color={props.color}>
         <Fire />
         <Distance>2000/10000 PARSEC</Distance>
-        <Button>Buy gas</Button>
+        <Button onClick={e => { props.buyGas() }}>{"Buy gas"}</Button>
       </ShipContent>
     </div>
   )

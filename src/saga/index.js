@@ -1,11 +1,25 @@
-import { all, takeEvery, put } from 'redux-saga/effects'
+import { all, takeEvery, put, call } from 'redux-saga/effects'
 
-import { INIT_GAME } from '../constants/actionTypes'
-import { getGameInformations } from '../services/nebulas'
+import { INIT_GAME, BUY_GAS, SET_GAME, SET_USER_ACCOUNT, COMPLETE_USER_INFORMATIONS } from '../constants/actionTypes'
+import * as contract from '../services/nebulas'
 
 function* initializeGame(action) {
-  debugger
-  yield put({ type: 'test' })
+  const { result } = yield call(() => {
+    return contract.getGameInformations()
+  })
+  
+  const game = JSON.parse(result.result)
+  yield put({ type: SET_GAME, game })
+}
+
+function* buyGas(action) {
+  yield call(() => { contract.buyGas(10) })
+}
+
+function* initializeUserInformations(action) {
+  const { result } = yield call(() => { return contract.getUserInformations(action.account) })
+  const userInformations = JSON.parse(result.result)
+  yield put({ type: COMPLETE_USER_INFORMATIONS, userInformations })
 }
 
 function* watchInitializeGame() {
@@ -13,7 +27,13 @@ function* watchInitializeGame() {
 }
 
 function* rootSaga() {
-  yield all([watchInitializeGame()])
+  yield all(
+    [
+      watchInitializeGame(),
+      takeEvery(BUY_GAS, buyGas),
+      takeEvery(SET_USER_ACCOUNT, initializeUserInformations)
+    ]
+  )
 }
 
 export default rootSaga

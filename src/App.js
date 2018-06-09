@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Background from './Background'
-import Ships from './Ships'
+import Ships from './containers/ships'
 import Header from './Header'
 import './App.css'
 
