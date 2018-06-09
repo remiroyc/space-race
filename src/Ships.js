@@ -14,8 +14,8 @@ const Ships = props => {
   console.log('props', props)
   return (
     <ShipContainer>
-      <Ship {...props} country="US" color="blue" />
-      <Ship {...props} country="CN" color="red" />
+      <Ship useGas={props.useGas} buyGas={props.buyGas} ship={props.ships[1]} shipId={1} color="blue" />
+      <Ship useGas={props.useGas} buyGas={props.buyGas} ship={props.ships[2]} shipId={2} color="red" />
     </ShipContainer>
   )
 }

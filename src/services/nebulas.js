@@ -24,6 +24,19 @@ export function buyGas(quantity) {
   return nebPay.queryPayInfo(serialNumber, options)
 }
 
+export function useGas(gas, ship) {
+  const options = { callback: NETWORK_URL }
+  const callArgs = JSON.stringify([gas, ship, false])
+  const serialNumber = nebPay.call(
+    CONTRACT_ADDRESS,
+    0,
+    "spendGas",
+    callArgs,
+    options
+  )
+  return nebPay.queryPayInfo(serialNumber, options)
+}
+
 export function getUserInformations(account) {
   return fetch(`${NEBULAS_BASE_URL}/v1/user/call`, {
     method: "POST",

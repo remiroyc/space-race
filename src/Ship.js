@@ -53,8 +53,12 @@ const Ship = props => {
     <div>
       <ShipContent color={props.color}>
         <Fire />
-        <Distance>2000/10000 PARSEC</Distance>
-        <Button onClick={e => { props.buyGas() }}>{"Buy gas"}</Button>
+        <Distance>{props.ship.distance}/10000 PARSEC</Distance>
+         {props.gas <= 0 ? (
+          <Button onClick={e => { props.buyGas() }}>{"Buy gas"}</Button>
+         ) : (
+          <Button onClick={e => { props.useGas(props.gas, props.shipId) }}>{"Use gas"}</Button>
+         )}
       </ShipContent>
     </div>
   )

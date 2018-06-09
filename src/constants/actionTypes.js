@@ -1,5 +1,6 @@
 export const INIT_GAME = 'INIT_GAME'
 export const BUY_GAS = 'BUY_GAS'
+export const USE_GAS = 'USE_GAS'
 export const SET_GAME = 'SET_GAME'
 export const SET_USER_ACCOUNT = 'SET_USER_ACCOUNT'
 export const COMPLETE_USER_INFORMATIONS = 'COMPLETE_USER_INFORMATIONS'
