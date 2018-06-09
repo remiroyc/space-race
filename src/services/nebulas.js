@@ -3,7 +3,7 @@ import nebulas from "nebulas"
 import NebPay from "nebpay"
 
 const NETWORK_URL = "https://pay.nebulas.io/api/pay"
-const CONTRACT_ADDRESS = "n21pMqUxzbvRpQfzqdH5UGQjfaEmh3Ujwbn"
+const CONTRACT_ADDRESS = "n1jiViwamhbTqqUPYgRA3Bc6pbQU4HZ2oFi"
 const NEBULAS_BASE_URL = "https://testnet.nebulas.io"
 const NEBULAS_OWNER_ADDRESS = "n1QAfaRsRfCtgyWdz9TWd7V1gUHa1uAYZVN"
 const NEBULAS_DEFAULT_GAS_PRICE = 1000000

@@ -200,65 +200,65 @@ Game.prototype = {
 
     this.gas.set(Blockchain.transaction.from, currentGas.minus(distance))
 
-    if (shipNumber === 1) {
-      this.players1Length = players1Length + 1
-      var previousPlayerBalance = this.playerBalance1.get(
-        Blockchain.transaction.from
-      )
-      this.playerBalance1.set(
-        Blockchain.transaction.from,
-        previousPlayerBalance + distance
-      )
-      var previousDistance = this.distance.get(1)
-      var newDistance = disadvantage
-        ? previousDistance.minus(previousDistance)
-        : previousDistance.plus(previousDistance)
+  //   if (shipNumber === 1) {
+  //     this.players1Length = players1Length + 1
+  //     var previousPlayerBalance = this.playerBalance1.get(
+  //       Blockchain.transaction.from
+  //     )
+  //     this.playerBalance1.set(
+  //       Blockchain.transaction.from,
+  //       previousPlayerBalance + distance
+  //     )
+  //     var previousDistance = this.distance.get(1)
+  //     var newDistance = disadvantage
+  //       ? previousDistance.minus(previousDistance)
+  //       : previousDistance.plus(previousDistance)
 
-      this.distance.set(1, newDistance < 0 ? 0 : newDistance)
-      this.checkWinner(1)
-    } else if (shipNumber === 2) {
-      this.players2Length = players2Length + 1
-      var previousPlayerBalance = this.playerBalance2.get(
-        Blockchain.transaction.from
-      )
-      this.playerBalance2.set(
-        Blockchain.transaction.from,
-        previousPlayerBalance + distance
-      )
-      var previousDistance = this.distance.get(2)
-      var newDistance = disadvantage
-        ? previousDistance.minus(previousDistance)
-        : previousDistance.plus(previousDistance)
+  //     this.distance.set(1, newDistance < 0 ? 0 : newDistance)
+  //     this.checkWinner(1)
+  //   } else if (shipNumber === 2) {
+  //     this.players2Length = players2Length + 1
+  //     var previousPlayerBalance = this.playerBalance2.get(
+  //       Blockchain.transaction.from
+  //     )
+  //     this.playerBalance2.set(
+  //       Blockchain.transaction.from,
+  //       previousPlayerBalance + distance
+  //     )
+  //     var previousDistance = this.distance.get(2)
+  //     var newDistance = disadvantage
+  //       ? previousDistance.minus(previousDistance)
+  //       : previousDistance.plus(previousDistance)
 
-      this.distance.set(2, newDistance < 0 ? 0 : newDistance)
-      this.checkWinner(2)
-    } else if (shipNumber === 3) {
-      this.players3Length = players3Length + 1
-      var previousPlayerBalance = this.playerBalance3.get(
-        Blockchain.transaction.from
-      )
-      this.playerBalance3.set(
-        Blockchain.transaction.from,
-        previousPlayerBalance + distance
-      )
-      var previousDistance = this.distance.get(3)
-      var newDistance = previousDistance.plus(previousDistance)
-      this.distance.set(3, newDistance)
-      this.checkWinner(3)
-    } else if (shipNumber === 4) {
-      this.players4Length = players4Length + 1
-      var previousPlayerBalance = this.playerBalance4.get(
-        Blockchain.transaction.from
-      )
-      this.playerBalance4.set(
-        Blockchain.transaction.from,
-        previousPlayerBalance + distance
-      )
-      var previousDistance = this.distance.get(4)
-      var newDistance = previousDistance.plus(previousDistance)
-      this.distance.set(4, newDistance)
-      this.checkWinner(4)
-    }
+  //     this.distance.set(2, newDistance < 0 ? 0 : newDistance)
+  //     this.checkWinner(2)
+  //   } else if (shipNumber === 3) {
+  //     this.players3Length = players3Length + 1
+  //     var previousPlayerBalance = this.playerBalance3.get(
+  //       Blockchain.transaction.from
+  //     )
+  //     this.playerBalance3.set(
+  //       Blockchain.transaction.from,
+  //       previousPlayerBalance + distance
+  //     )
+  //     var previousDistance = this.distance.get(3)
+  //     var newDistance = previousDistance.plus(previousDistance)
+  //     this.distance.set(3, newDistance)
+  //     this.checkWinner(3)
+  //   } else if (shipNumber === 4) {
+  //     this.players4Length = players4Length + 1
+  //     var previousPlayerBalance = this.playerBalance4.get(
+  //       Blockchain.transaction.from
+  //     )
+  //     this.playerBalance4.set(
+  //       Blockchain.transaction.from,
+  //       previousPlayerBalance + distance
+  //     )
+  //     var previousDistance = this.distance.get(4)
+  //     var newDistance = previousDistance.plus(previousDistance)
+  //     this.distance.set(4, newDistance)
+  //     this.checkWinner(4)
+  //   }
   }
 }
 

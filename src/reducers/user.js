@@ -16,7 +16,8 @@ function userReducer(state = initialState, action) {
     case COMPLETE_USER_INFORMATIONS:
       return {
         ...state,
-        ...action.userInformations
+        gas: action.userInformations.gas || 0,
+        ship: action.userInformations.ship
       }
 
     default:
