@@ -3,7 +3,7 @@ import nebulas from 'nebulas'
 import NebPay from 'nebpay'
 
 const NETWORK_URL = 'https://pay.nebulas.io/api/pay'
-const CONTRACT_ADDRESS = 'n1wEtkgCwj6kxBDXmEBk6gx6eszozX8Xg7f'
+const CONTRACT_ADDRESS = 'n1t8sDAfVZitKG1qiBLpE28UNQviW8k6B8G'
 const NEBULAS_BASE_URL = 'https://testnet.nebulas.io'
 const NEBULAS_OWNER_ADDRESS = 'n1QAfaRsRfCtgyWdz9TWd7V1gUHa1uAYZVN'
 const NEBULAS_DEFAULT_GAS_PRICE = 1000000
@@ -19,7 +19,6 @@ export function buyGas(quantity) {
 }
 
 export function useGas(gas, ship) {
-  debugger
   const options = { callback: NETWORK_URL }
   const callArgs = JSON.stringify([gas, ship, false])
   const serialNumber = nebPay.call(CONTRACT_ADDRESS, 0, 'spendGas', callArgs, options)

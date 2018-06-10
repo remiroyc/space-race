@@ -7,7 +7,8 @@ const mapStateToProps = (state, props) => ({
   game: state.game,
   gas: state.user.gas || 0,
   ships: state.game.ships,
-  selectedShip: state.user.ship
+  selectedShip: state.user.ship,
+  lastTransaction: state.user.lastTransaction
 })
 
 const mapDispatchToProps = dispatch => {

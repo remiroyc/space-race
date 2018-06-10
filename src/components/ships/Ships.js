@@ -15,7 +15,6 @@ const ShipContainer = styled.div`
 `
 
 const Ships = props => {
-  console.log('props', props)
   return (
     <ShipContainer>
       <Ship
@@ -26,6 +25,7 @@ const Ships = props => {
         ship={props.ships[1]}
         shipId={1}
         type={blueShip}
+        lastTransaction={props.lastTransaction}
       />
       <Ship
         gas={props.gas}
@@ -35,6 +35,7 @@ const Ships = props => {
         ship={props.ships[2]}
         shipId={2}
         type={redShip}
+        lastTransaction={props.lastTransaction}
       />
       <Ship
         gas={props.gas}
@@ -44,6 +45,7 @@ const Ships = props => {
         ship={props.ships[3]}
         shipId={3}
         type={smallShip}
+        lastTransaction={props.lastTransaction}
       />
       <Ship
         gas={props.gas}
@@ -53,6 +55,7 @@ const Ships = props => {
         ship={props.ships[4]}
         shipId={4}
         type={whiteShip}
+        lastTransaction={props.lastTransaction}
       />
     </ShipContainer>
   )

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import fireAnim from '../../images/fire.gif'
 import { buyGas } from '../../services/nebulas'
+import Countdown from 'react-countdown-now'
 
 const ShipWrapper = styled.div`
   width: 25%;
@@ -89,13 +90,23 @@ const Ship = props => {
           ) : (
             <React.Fragment>
               {props.selectedShip === props.shipId && (
-                <Button
-                  onClick={e => {
-                    props.useGas(props.gas, props.shipId)
-                  }}
-                >
-                  {'Use gas'}
-                </Button>
+                <React.Fragment>
+                  {props.lastTransaction + 3600000 <= Date.now() ? (
+                    <Button
+                      onClick={e => {
+                        props.useGas(props.gas, props.shipId)
+                      }}
+                    >
+                      {'Use gas'}
+                    </Button>
+                  ) : (
+                    <p>
+                      <Countdown date={props.lastTransaction + 3600000} />
+                      <br />
+                      before next gas spend
+                    </p>
+                  )}
+                </React.Fragment>
               )}
             </React.Fragment>
           )}

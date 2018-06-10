@@ -11,6 +11,7 @@ const Game = function() {
 
   LocalContractStorage.defineMapProperty(this, 'distance')
   LocalContractStorage.defineMapProperty(this, 'gas')
+  LocalContractStorage.defineMapProperty(this, 'lastTransaction')
   LocalContractStorage.defineMapProperty(this, 'playerBalance1')
   LocalContractStorage.defineMapProperty(this, 'playerBalance2')
   LocalContractStorage.defineMapProperty(this, 'playerBalance3')
@@ -81,6 +82,7 @@ Game.prototype = {
 
   getUserInformations: function(user) {
     return {
+      lastTransaction: this.lastTransaction.get(user),
       gas: this.gas.get(user),
       ship: this.playerChoice.get(user)
     }
@@ -173,7 +175,8 @@ Game.prototype = {
     if (currentGas <= 0 || distance > currentGas) {
       throw new Error('Required more gas')
     }
-
+    var timeStamp = Date.now()
+    this.lastTransaction.set(Blockchain.transaction.from, timeStamp)
     this.gas.set(Blockchain.transaction.from, currentGas.minus(new BigNumber(distance)))
 
     this.players1Length = this.players1Length + 1
