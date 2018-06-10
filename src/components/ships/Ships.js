@@ -10,7 +10,7 @@ import Ship from './Ship'
 const ShipContainer = styled.div`
   width: 100%;
   z-index: 100;
-  top: 45%;
+  top: 50%;
   position: absolute;
 `
 

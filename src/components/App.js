@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Background from './Background'
 import Ships from './ships/ShipsContainer'
-import Header from './Header'
+import Header from './header/HeaderContainer'
 import './App.css'
 
 class App extends Component {
