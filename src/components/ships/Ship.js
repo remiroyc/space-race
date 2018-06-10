@@ -9,6 +9,7 @@ const ShipWrapper = styled.div`
   display: inline-block;
   text-align: center;
   position: relative;
+  vertical-align: top;
 `
 
 const ShipContent = styled.div`
@@ -72,7 +73,7 @@ const Ship = props => {
         )}
       </ShipContent>
       <Distance>{props.ship.distance}/10000 PARSEC</Distance>
-      {props.gas > 0 && (
+      {props.gas > 0 ? (
         <React.Fragment>
           {props.selectedShip === null ? (
             <React.Fragment>
@@ -99,6 +100,8 @@ const Ship = props => {
             </React.Fragment>
           )}
         </React.Fragment>
+      ) : (
+        <React.Fragment>{props.selectedShip === props.shipId && <p>You should buy some gas</p>}</React.Fragment>
       )}
     </ShipWrapper>
   )

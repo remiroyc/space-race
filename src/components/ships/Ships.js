@@ -32,7 +32,7 @@ const Ships = props => {
         selectedShip={props.selectedShip}
         useGas={props.useGas}
         buyGas={props.buyGas}
-        ship={props.ships[1]}
+        ship={props.ships[2]}
         shipId={2}
         type={redShip}
       />
@@ -41,7 +41,7 @@ const Ships = props => {
         selectedShip={props.selectedShip}
         useGas={props.useGas}
         buyGas={props.buyGas}
-        ship={props.ships[1]}
+        ship={props.ships[3]}
         shipId={3}
         type={smallShip}
       />
@@ -50,7 +50,7 @@ const Ships = props => {
         selectedShip={props.selectedShip}
         useGas={props.useGas}
         buyGas={props.buyGas}
-        ship={props.ships[2]}
+        ship={props.ships[4]}
         shipId={4}
         type={whiteShip}
       />
