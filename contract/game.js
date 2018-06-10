@@ -175,18 +175,23 @@ Game.prototype = {
     if (currentGas <= 0 || distance > currentGas) {
       throw new Error('Required more gas')
     }
+
     var timeStamp = Date.now()
-    this.lastTransaction.set(Blockchain.transaction.from, timeStamp)
-    this.gas.set(Blockchain.transaction.from, currentGas.minus(new BigNumber(distance)))
+    var lastTransaction = this.lastTransaction.get(Blockchain.transaction.from)
 
-    this.players1Length = this.players1Length + 1
-    var previousPlayerBalance = this.playerBalance1.get(Blockchain.transaction.from)
-    this.playerBalance1.set(Blockchain.transaction.from, previousPlayerBalance + distance)
-    var previousDistance = this.distance.get(shipNumber)
-    var newDistance = disadvantage ? previousDistance - distance : previousDistance + distance
+    if (lastTransaction + 3600000 < timeStamp) {
+      this.lastTransaction.set(Blockchain.transaction.from, timeStamp)
+      this.gas.set(Blockchain.transaction.from, currentGas.minus(new BigNumber(distance)))
 
-    this.distance.set(shipNumber, newDistance < 0 ? 0 : newDistance)
-    this.checkWinner(shipNumber)
+      this.players1Length = this.players1Length + 1
+      var previousPlayerBalance = this.playerBalance1.get(Blockchain.transaction.from)
+      this.playerBalance1.set(Blockchain.transaction.from, previousPlayerBalance + distance)
+      var previousDistance = this.distance.get(shipNumber)
+      var newDistance = disadvantage ? previousDistance - distance : previousDistance + distance
+
+      this.distance.set(shipNumber, newDistance < 0 ? 0 : newDistance)
+      this.checkWinner(shipNumber)
+    }
   }
 }
 
