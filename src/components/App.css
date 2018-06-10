@@ -1,0 +1,19 @@
+@import url("http://fast.fonts.net/t/1.css?apiType=css&projectid=40088bd1-2fdf-4c6f-9b58-571f46287cf0");
+
+@font-face{
+  font-family:"LomoCopy LT W01 Midi";
+  src:url("../Fonts/40faba0b-6f18-47a9-ba38-096bc04090e0.eot?#iefix");
+  src:url("../Fonts/40faba0b-6f18-47a9-ba38-096bc04090e0.eot?#iefix") format("eot"),url("../Fonts/c482bdc6-9d34-4757-8bad-8194d17cbce5.woff2") format("woff2"),url("../Fonts/35414182-e00c-45cb-8316-41bfeb3e460f.woff") format("woff"),url("../Fonts/10fe4f64-f06a-4c9e-bc27-cf41d6dd9ab0.ttf") format("truetype"),url("../Fonts/4ec5b058-db81-4b2d-8724-f9eed0cae16d.svg#4ec5b058-db81-4b2d-8724-f9eed0cae16d") format("svg");
+}
+
+@font-face{
+  font-family:"LomoCopy LT W01 Black";
+  src:url("../Fonts/7fa31455-a3dd-408d-a85a-83c1e4340c05.eot?#iefix");
+  src:url("../Fonts/7fa31455-a3dd-408d-a85a-83c1e4340c05.eot?#iefix") format("eot"),url("../Fonts/b41e125b-abfe-4013-aed9-99fad7f268f9.woff2") format("woff2"),url("../Fonts/95b48e5f-098f-4fc4-bdc2-9e14a87f434c.woff") format("woff"),url("../Fonts/17577beb-df7d-4db7-9832-388f6324d8fd.ttf") format("truetype"),url("../Fonts/964cf3b2-9d08-4dd5-a248-ef42fb5005f9.svg#964cf3b2-9d08-4dd5-a248-ef42fb5005f9") format("svg");
+}
+
+body {
+  font-family: "LomoCopy LT W01 Midi", georgia;
+  color: white;
+  background: black;
+}

@@ -45,12 +45,12 @@ Game.prototype = {
         },
         3: {
           country: 'RU',
-          players: this.players2Length,
+          players: this.players3Length,
           distance: this.distance.get(3)
         },
         4: {
           country: 'EU',
-          players: this.players2Length,
+          players: this.players4Length,
           distance: this.distance.get(4)
         }
       }
@@ -88,12 +88,7 @@ Game.prototype = {
 
   getPlayerShipNumber: function() {
     const playerChoice = this.playerChoice.get(Blockchain.transaction.from)
-    if (
-      playerChoice !== 1 &&
-      playerChoice !== 2 &&
-      playerChoice !== 3 &&
-      playerChoice !== 4
-    ) {
+    if (playerChoice !== 1 && playerChoice !== 2 && playerChoice !== 3 && playerChoice !== 4) {
       throw new Error('You need to spending your gas first')
     }
     return playerChoice
@@ -124,21 +119,13 @@ Game.prototype = {
     }
 
     if (this.winner === 1) {
-      _sendBalance(
-        new BigNumber(this.playerBalance1.get(Blockchain.transaction.from))
-      )
+      _sendBalance(new BigNumber(this.playerBalance1.get(Blockchain.transaction.from)))
     } else if (this.winner === 2) {
-      _sendBalance(
-        new BigNumber(this.playerBalance2.get(Blockchain.transaction.from))
-      )
+      _sendBalance(new BigNumber(this.playerBalance2.get(Blockchain.transaction.from)))
     } else if (this.winner === 3) {
-      _sendBalance(
-        new BigNumber(this.playerBalance3.get(Blockchain.transaction.from))
-      )
+      _sendBalance(new BigNumber(this.playerBalance3.get(Blockchain.transaction.from)))
     } else if (this.winner === 4) {
-      _sendBalance(
-        new BigNumber(this.playerBalance4.get(Blockchain.transaction.from))
-      )
+      _sendBalance(new BigNumber(this.playerBalance4.get(Blockchain.transaction.from)))
     }
   },
 
@@ -147,14 +134,14 @@ Game.prototype = {
       throw new Error('Game is finished')
     }
 
-    if(quantity <= 0) {
+    if (quantity <= 0) {
       throw new Error('Quantity is invalid')
     }
- 
+
     var value = new BigNumber(Blockchain.transaction.value)
     var requiredPrice = new BigNumber(quantity * 0.01)
 
-    if(value.lt(requiredPrice)) {
+    if (value.lt(requiredPrice)) {
       throw new Error('Required min price (' + requiredPrice.toString() + ')')
     }
 
@@ -168,22 +155,12 @@ Game.prototype = {
       throw new Error('Game is finished')
     }
 
-    if (
-      shipNumber !== 1 &&
-      shipNumber !== 2 &&
-      shipNumber !== 3 &&
-      shipNumber !== 4
-    ) {
+    if (shipNumber !== 1 && shipNumber !== 2 && shipNumber !== 3 && shipNumber !== 4) {
       throw new Error('Invalid ship number')
     }
 
     var playerChoice = this.playerChoice.get(Blockchain.transaction.from)
-    if (
-      playerChoice === 1 ||
-      playerChoice === 2 ||
-      playerChoice === 3 ||
-      playerChoice === 4
-    ) {
+    if (playerChoice === 1 || playerChoice === 2 || playerChoice === 3 || playerChoice === 4) {
       if (playerChoice !== shipNumber) {
         throw new Error('You cannot invest in both teams')
       }
@@ -191,9 +168,7 @@ Game.prototype = {
       this.playerChoice.set(Blockchain.transaction.from, shipNumber)
     }
 
-    var currentGas = new BigNumber(
-      this.gas.get(Blockchain.transaction.from) || 0
-    )
+    var currentGas = new BigNumber(this.gas.get(Blockchain.transaction.from) || 0)
 
     if (currentGas <= 0 || distance > currentGas) {
       throw new Error('Required more gas')
@@ -203,13 +178,8 @@ Game.prototype = {
 
     if (shipNumber === 1) {
       this.players1Length = this.players1Length + 1
-      var previousPlayerBalance = this.playerBalance1.get(
-        Blockchain.transaction.from
-      )
-      this.playerBalance1.set(
-        Blockchain.transaction.from,
-        previousPlayerBalance + distance
-      )
+      var previousPlayerBalance = this.playerBalance1.get(Blockchain.transaction.from)
+      this.playerBalance1.set(Blockchain.transaction.from, previousPlayerBalance + distance)
       var previousDistance = this.distance.get(1)
       var newDistance = disadvantage
         ? previousDistance.minus(previousDistance)
@@ -218,48 +188,48 @@ Game.prototype = {
       this.distance.set(1, newDistance < 0 ? 0 : newDistance)
       this.checkWinner(1)
     } // else if (shipNumber === 2) {
-  //     this.players2Length = players2Length + 1
-  //     var previousPlayerBalance = this.playerBalance2.get(
-  //       Blockchain.transaction.from
-  //     )
-  //     this.playerBalance2.set(
-  //       Blockchain.transaction.from,
-  //       previousPlayerBalance + distance
-  //     )
-  //     var previousDistance = this.distance.get(2)
-  //     var newDistance = disadvantage
-  //       ? previousDistance.minus(previousDistance)
-  //       : previousDistance.plus(previousDistance)
+    //     this.players2Length = players2Length + 1
+    //     var previousPlayerBalance = this.playerBalance2.get(
+    //       Blockchain.transaction.from
+    //     )
+    //     this.playerBalance2.set(
+    //       Blockchain.transaction.from,
+    //       previousPlayerBalance + distance
+    //     )
+    //     var previousDistance = this.distance.get(2)
+    //     var newDistance = disadvantage
+    //       ? previousDistance.minus(previousDistance)
+    //       : previousDistance.plus(previousDistance)
 
-  //     this.distance.set(2, newDistance < 0 ? 0 : newDistance)
-  //     this.checkWinner(2)
-  //   } else if (shipNumber === 3) {
-  //     this.players3Length = players3Length + 1
-  //     var previousPlayerBalance = this.playerBalance3.get(
-  //       Blockchain.transaction.from
-  //     )
-  //     this.playerBalance3.set(
-  //       Blockchain.transaction.from,
-  //       previousPlayerBalance + distance
-  //     )
-  //     var previousDistance = this.distance.get(3)
-  //     var newDistance = previousDistance.plus(previousDistance)
-  //     this.distance.set(3, newDistance)
-  //     this.checkWinner(3)
-  //   } else if (shipNumber === 4) {
-  //     this.players4Length = players4Length + 1
-  //     var previousPlayerBalance = this.playerBalance4.get(
-  //       Blockchain.transaction.from
-  //     )
-  //     this.playerBalance4.set(
-  //       Blockchain.transaction.from,
-  //       previousPlayerBalance + distance
-  //     )
-  //     var previousDistance = this.distance.get(4)
-  //     var newDistance = previousDistance.plus(previousDistance)
-  //     this.distance.set(4, newDistance)
-  //     this.checkWinner(4)
-  //   }
+    //     this.distance.set(2, newDistance < 0 ? 0 : newDistance)
+    //     this.checkWinner(2)
+    //   } else if (shipNumber === 3) {
+    //     this.players3Length = players3Length + 1
+    //     var previousPlayerBalance = this.playerBalance3.get(
+    //       Blockchain.transaction.from
+    //     )
+    //     this.playerBalance3.set(
+    //       Blockchain.transaction.from,
+    //       previousPlayerBalance + distance
+    //     )
+    //     var previousDistance = this.distance.get(3)
+    //     var newDistance = previousDistance.plus(previousDistance)
+    //     this.distance.set(3, newDistance)
+    //     this.checkWinner(3)
+    //   } else if (shipNumber === 4) {
+    //     this.players4Length = players4Length + 1
+    //     var previousPlayerBalance = this.playerBalance4.get(
+    //       Blockchain.transaction.from
+    //     )
+    //     this.playerBalance4.set(
+    //       Blockchain.transaction.from,
+    //       previousPlayerBalance + distance
+    //     )
+    //     var previousDistance = this.distance.get(4)
+    //     var newDistance = previousDistance.plus(previousDistance)
+    //     this.distance.set(4, newDistance)
+    //     this.checkWinner(4)
+    //   }
   }
 }
 
