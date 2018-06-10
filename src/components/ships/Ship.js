@@ -75,13 +75,16 @@ const Ship = props => {
       {props.gas > 0 && (
         <React.Fragment>
           {props.selectedShip === null ? (
-            <Button
-              onClick={e => {
-                props.useGas(props.gas, props.shipId)
-              }}
-            >
-              {'Use gas'}
-            </Button>
+            <React.Fragment>
+              <p>select this team</p>
+              <Button
+                onClick={e => {
+                  props.useGas(props.gas, props.shipId)
+                }}
+              >
+                {'Use gas'}
+              </Button>
+            </React.Fragment>
           ) : (
             <React.Fragment>
               {props.selectedShip === props.shipId && (
