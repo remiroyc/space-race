@@ -6,7 +6,8 @@ import Ships from '../Ships'
 const mapStateToProps = (state, props) => ({
     game: state.game,
     gas: state.user.gas || 0,
-    ships: state.game.ships
+    ships: state.game.ships,
+    selectedShip: state.user.ship
 })
 
 const mapDispatchToProps = (dispatch) => {
