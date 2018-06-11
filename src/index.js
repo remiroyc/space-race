@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reducers from './reducers/index'
 import rootSaga from './saga/index'
 import registerServiceWorker from './registerServiceWorker'
-import { INIT_GAME, SET_USER_ACCOUNT } from './constants/actionTypes'
+import { INIT_GAME, SET_USER_ACCOUNT, FETCH_ALL } from './constants/actionTypes'
 import App from './components/App'
 
 import './index.css'
@@ -22,6 +22,10 @@ window.store = store
 
 sagaMiddleware.run(rootSaga)
 store.dispatch({ type: INIT_GAME })
+
+setInterval(() => {
+  store.dispatch({ type: FETCH_ALL })
+}, 5000)
 
 global.window.addEventListener('message', e => {
   if (e.data.data && e.data.data.account) {
