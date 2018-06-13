@@ -3,9 +3,9 @@ import nebulas from 'nebulas'
 import NebPay from 'nebpay'
 
 const NETWORK_URL = 'https://pay.nebulas.io/api/pay'
-const CONTRACT_ADDRESS = 'n1o6YvaeoSH1RHErtXpikWypYd975414trS'
+const CONTRACT_ADDRESS = 'n1mMkx1f7gF9GMCWLFSMA2kaBVfST8kYZhu'
 const NEBULAS_BASE_URL = 'https://testnet.nebulas.io'
-const NEBULAS_OWNER_ADDRESS = 'n1QAfaRsRfCtgyWdz9TWd7V1gUHa1uAYZVN'
+const NEBULAS_OWNER_ADDRESS = 'n1Gn1ffVMmspGbTGyLB7tvdaK1Kgy7A1ZLK'
 const NEBULAS_DEFAULT_GAS_PRICE = 1000000
 const NEBULAS_DEFAULT_GAS_LIMIT = 2000000
 
