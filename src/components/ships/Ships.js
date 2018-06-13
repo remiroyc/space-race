@@ -14,49 +14,33 @@ const ShipContainer = styled.div`
   position: absolute;
 `
 
+function getShip(shipId) {
+  return [blueShip, redShip, smallShip, whiteShip][Number(shipId) - 1]
+}
+
 const Ships = props => {
   return (
     <ShipContainer>
-      <Ship
-        gas={props.gas}
-        selectedShip={props.selectedShip}
-        useGas={props.useGas}
-        buyGas={props.buyGas}
-        ship={props.ships[1]}
-        shipId={1}
-        type={blueShip}
-        lastTransaction={props.lastTransaction}
-      />
-      <Ship
-        gas={props.gas}
-        selectedShip={props.selectedShip}
-        useGas={props.useGas}
-        buyGas={props.buyGas}
-        ship={props.ships[2]}
-        shipId={2}
-        type={redShip}
-        lastTransaction={props.lastTransaction}
-      />
-      <Ship
-        gas={props.gas}
-        selectedShip={props.selectedShip}
-        useGas={props.useGas}
-        buyGas={props.buyGas}
-        ship={props.ships[3]}
-        shipId={3}
-        type={smallShip}
-        lastTransaction={props.lastTransaction}
-      />
-      <Ship
-        gas={props.gas}
-        selectedShip={props.selectedShip}
-        useGas={props.useGas}
-        buyGas={props.buyGas}
-        ship={props.ships[4]}
-        shipId={4}
-        type={whiteShip}
-        lastTransaction={props.lastTransaction}
-      />
+      {Object.keys(props.ships)
+        .sort((a, b) => {
+          return props.ships[b].distance - props.ships[a].distance
+        })
+        .map((shipId, index) => {
+          const ship = props.ships[shipId]
+          return (
+            <Ship
+              gas={props.gas}
+              selectedShip={props.selectedShip}
+              useGas={props.useGas}
+              buyGas={props.buyGas}
+              ship={ship}
+              shipId={Number(shipId)}
+              position={index + 1}
+              type={getShip(shipId)}
+              lastTransaction={props.lastTransaction}
+            />
+          )
+        })}
     </ShipContainer>
   )
 }

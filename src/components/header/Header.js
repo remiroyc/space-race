@@ -66,8 +66,7 @@ class Header extends React.Component {
   }
 
   updateQuantity(e) {
-    this.state = { quantity: e.target.value }
-    this.setState(this.state)
+    this.setState({ quantity: e.target.value })
   }
 
   render() {
@@ -75,16 +74,26 @@ class Header extends React.Component {
       <HeaderContent>
         <HeaderTitle>Nebulas Spaceship Race</HeaderTitle>
         <HeaderPrice>UP TO 200 NAS FOR THE WINNING TEAM</HeaderPrice>
-        <HeaderSubtitle>First ship to reach 10000 Parsec is the winner</HeaderSubtitle>
+        <HeaderSubtitle>
+          First ship to reach 10000 Parsec is the winner
+        </HeaderSubtitle>
         {this.props.gas > 0 ? (
-          <HeaderSubtitle>You have {this.props.gas} GAS you can spend it</HeaderSubtitle>
+          <HeaderSubtitle>
+            You have {this.props.gas} GAS you can spend it
+          </HeaderSubtitle>
         ) : (
           <HeaderSubtitle>Buy gas and choose your team</HeaderSubtitle>
         )}
 
         <Form>
-          <Input onChange={e => this.updateQuantity(e)} value={this.state.quantity} type="text" />
-          <Button onClick={() => this.props.buyGas(this.state.quantity)}>{'Buy gas'}</Button>
+          <Input
+            onChange={e => this.updateQuantity(e)}
+            value={this.state.quantity}
+            type="text"
+          />
+          <Button onClick={() => this.props.buyGas(this.state.quantity)}>
+            {'Buy gas'}
+          </Button>
         </Form>
       </HeaderContent>
     )

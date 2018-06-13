@@ -20,7 +20,6 @@ function* initializeGame() {
 }
 
 function* fetchAll() {
-
   const account = yield select(state => {
     return state.user.account
   })

@@ -3,13 +3,15 @@ import { USE_GAS, BUY_GAS } from '../../constants/actionTypes'
 
 import Ships from './Ships'
 
-const mapStateToProps = (state, props) => ({
-  game: state.game,
-  gas: state.user.gas || 0,
-  ships: state.game.ships,
-  selectedShip: state.user.ship,
-  lastTransaction: state.user.lastTransaction
-})
+const mapStateToProps = (state, props) => {
+  return {
+    game: state.game,
+    gas: state.user.gas || 0,
+    ships: state.game.ships,
+    selectedShip: state.user.ship,
+    lastTransaction: state.user.lastTransaction
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
