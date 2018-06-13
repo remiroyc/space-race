@@ -29,6 +29,7 @@ const Ships = props => {
           const ship = props.ships[shipId]
           return (
             <Ship
+              key={Number(shipId)}
               gas={props.gas}
               selectedShip={props.selectedShip}
               useGas={props.useGas}
