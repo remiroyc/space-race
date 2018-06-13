@@ -22,10 +22,10 @@ const Game = function() {
 Game.prototype = {
   init: function() {
     this.owner = Blockchain.transaction.from
-    this.distance.set(1, 0)
-    this.distance.set(2, 0)
-    this.distance.set(3, 0)
-    this.distance.set(4, 0)
+    this.distance.set(1, new BigNumber(0))
+    this.distance.set(2, new BigNumber(0))
+    this.distance.set(3, new BigNumber(0))
+    this.distance.set(4, new BigNumber(0))
     this.finished = false
     this.globalBalance = new BigNumber(0)
   },
@@ -224,19 +224,22 @@ Game.prototype = {
       )
 
       this.players1Length = this.players1Length + 1
-      var previousPlayerBalance = this.playerBalance1.get(
-        Blockchain.transaction.from
+      var previousPlayerBalance = new BigNumber(
+        this.playerBalance1.get(Blockchain.transaction.from)
       )
       this.playerBalance1.set(
         Blockchain.transaction.from,
-        previousPlayerBalance + distance
+        previousPlayerBalance.plus(new BigNumber(distance))
       )
-      var previousDistance = this.distance.get(shipNumber)
+      var previousDistance = new BigNumber(this.distance.get(shipNumber))
       var newDistance = disadvantage
-        ? previousDistance - distance
-        : previousDistance + distance
+        ? previousDistance.minus(new BigNumber(distance))
+        : previousDistance.plus(new BigNumber(distance))
 
-      this.distance.set(shipNumber, newDistance < 0 ? 0 : newDistance)
+      this.distance.set(
+        shipNumber,
+        newDistance < 0 ? new BigNumber(0) : newDistance
+      )
       this.checkWinner(shipNumber)
     }
   },
