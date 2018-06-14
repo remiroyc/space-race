@@ -113,7 +113,7 @@ const Ship = props => {
             <React.Fragment>
               {props.selectedShip === props.shipId && (
                 <React.Fragment>
-                  {props.lastTransaction + 3600000 <= Date.now() ? (
+                  {props.lastTransaction + 600000 <= Date.now() ? (
                     <Button
                       onClick={e => {
                         props.useGas(props.gas, props.shipId)
@@ -123,7 +123,7 @@ const Ship = props => {
                     </Button>
                   ) : (
                     <p>
-                      <Countdown date={props.lastTransaction + 3600000} />
+                      <Countdown date={props.lastTransaction + 600000} />
                       <br />
                       before next gas spend
                     </p>
