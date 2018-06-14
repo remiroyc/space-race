@@ -225,13 +225,13 @@ Game.prototype = {
 
       this.players1Length = this.players1Length + 1
       var previousPlayerBalance = new BigNumber(
-        this.playerBalance1.get(Blockchain.transaction.from)
+        this.playerBalance1.get(Blockchain.transaction.from) || 0
       )
       this.playerBalance1.set(
         Blockchain.transaction.from,
         previousPlayerBalance.plus(new BigNumber(distance))
       )
-      var previousDistance = new BigNumber(this.distance.get(shipNumber))
+      var previousDistance = new BigNumber(this.distance.get(shipNumber) || 0)
       var newDistance = disadvantage
         ? previousDistance.minus(new BigNumber(distance))
         : previousDistance.plus(new BigNumber(distance))
