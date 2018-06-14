@@ -33,7 +33,7 @@ const particuleConfig = {
     move: {
       enable: true,
       speed: 40,
-      direction: 'top',
+      direction: 'bottom',
       random: true,
       straight: true,
       out_mode: 'out',

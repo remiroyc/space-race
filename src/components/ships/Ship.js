@@ -1,9 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import Countdown from 'react-countdown-now'
 
 import fireAnim from '../../images/fire.gif'
-import { buyGas } from '../../services/nebulas'
-import Countdown from 'react-countdown-now'
+import EuropeFlag from '../../images/flags/eu.svg'
+import ChinaFlag from '../../images/flags/ch.svg'
+import UnitedStatesFlag from '../../images/flags/us.svg'
+import RussianFlag from '../../images/flags/ru.svg'
 
 const ShipWrapper = styled.div`
   width: 25%;
@@ -26,9 +29,10 @@ const Fire = styled.div`
   width: 21px;
   height: 21px;
   position: absolute;
-  top: -6px;
-  left: 63px;
+  top: 137px;
+  left: 66px;
   background: url(${fireAnim});
+  transform: rotate(180deg);
 `
 
 const Button = styled.button`
@@ -59,15 +63,33 @@ const PositionFire = Fire.extend`
   top: ${props => props.top};
 `
 
+const ShipTitle = styled.div`
+  position: relative;
+  top: -10px;
+`
+
+const ShipImage = styled.img`
+  width: 20px;
+`
+
+function getShip(shipId) {
+  return [EuropeFlag, ChinaFlag, UnitedStatesFlag, RussianFlag][
+    Number(shipId) - 1
+  ]
+}
+
 const Ship = props => {
-  console.log(props)
   return (
     <ShipWrapper>
+      <ShipTitle>
+        {`${props.position}. `}
+        <ShipImage src={getShip(props.shipId)} alt="" />
+      </ShipTitle>
       <ShipContent type={props.type}>
         {props.shipId === 3 ? (
           <React.Fragment>
-            <PositionFire left="51px" top="8px" />
-            <PositionFire left="74px" top="8px" />
+            <PositionFire left="55px" top="124px" />
+            <PositionFire left="78px" top="124px" />
           </React.Fragment>
         ) : (
           <Fire />
@@ -112,7 +134,11 @@ const Ship = props => {
           )}
         </React.Fragment>
       ) : (
-        <React.Fragment>{props.selectedShip === props.shipId && <p>You should buy some gas</p>}</React.Fragment>
+        <React.Fragment>
+          {props.selectedShip === props.shipId && (
+            <p>You should buy some gas</p>
+          )}
+        </React.Fragment>
       )}
     </ShipWrapper>
   )

@@ -22,11 +22,12 @@ const Game = function() {
 Game.prototype = {
   init: function() {
     this.owner = Blockchain.transaction.from
-    this.distance.set(1, 0)
-    this.distance.set(2, 0)
-    this.distance.set(3, 0)
-    this.distance.set(4, 0)
+    this.distance.set(1, new BigNumber(0))
+    this.distance.set(2, new BigNumber(0))
+    this.distance.set(3, new BigNumber(0))
+    this.distance.set(4, new BigNumber(0))
     this.finished = false
+    this.globalBalance = new BigNumber(0)
   },
 
   getGameInformations: function() {
@@ -90,7 +91,12 @@ Game.prototype = {
 
   getPlayerShipNumber: function() {
     const playerChoice = this.playerChoice.get(Blockchain.transaction.from)
-    if (playerChoice !== 1 && playerChoice !== 2 && playerChoice !== 3 && playerChoice !== 4) {
+    if (
+      playerChoice !== 1 &&
+      playerChoice !== 2 &&
+      playerChoice !== 3 &&
+      playerChoice !== 4
+    ) {
       throw new Error('You need to spending your gas first')
     }
     return playerChoice
@@ -121,13 +127,21 @@ Game.prototype = {
     }
 
     if (this.winner === 1) {
-      _sendBalance(new BigNumber(this.playerBalance1.get(Blockchain.transaction.from)))
+      _sendBalance(
+        new BigNumber(this.playerBalance1.get(Blockchain.transaction.from))
+      )
     } else if (this.winner === 2) {
-      _sendBalance(new BigNumber(this.playerBalance2.get(Blockchain.transaction.from)))
+      _sendBalance(
+        new BigNumber(this.playerBalance2.get(Blockchain.transaction.from))
+      )
     } else if (this.winner === 3) {
-      _sendBalance(new BigNumber(this.playerBalance3.get(Blockchain.transaction.from)))
+      _sendBalance(
+        new BigNumber(this.playerBalance3.get(Blockchain.transaction.from))
+      )
     } else if (this.winner === 4) {
-      _sendBalance(new BigNumber(this.playerBalance4.get(Blockchain.transaction.from)))
+      _sendBalance(
+        new BigNumber(this.playerBalance4.get(Blockchain.transaction.from))
+      )
     }
   },
 
@@ -147,9 +161,14 @@ Game.prototype = {
       throw new Error('Required min price (' + requiredPrice.toString() + ')')
     }
 
-    var currentGas = this.gas.get(Blockchain.transaction.from) || 0
-    var newGasValue = currentGas + quantity
+    var currentGas = new BigNumber(
+      this.gas.get(Blockchain.transaction.from) || 0
+    )
+    var newGasValue = currentGas.plus(new BigNumber(quantity))
     this.gas.set(Blockchain.transaction.from, newGasValue)
+    this.globalBalance = new BigNumber(this.globalBalance).plus(
+      new BigNumber(Blockchain.transaction.value)
+    )
   },
 
   spendGas: function(distance, shipNumber, disadvantage) {
@@ -157,12 +176,28 @@ Game.prototype = {
       throw new Error('Game is finished')
     }
 
-    if (shipNumber !== 1 && shipNumber !== 2 && shipNumber !== 3 && shipNumber !== 4) {
+    if (distance < 10) {
+      throw new Error('Invalid gas balance')
+    } else if (distance > 10) {
+      distance = 10
+    }
+
+    if (
+      shipNumber !== 1 &&
+      shipNumber !== 2 &&
+      shipNumber !== 3 &&
+      shipNumber !== 4
+    ) {
       throw new Error('Invalid ship number')
     }
 
     var playerChoice = this.playerChoice.get(Blockchain.transaction.from)
-    if (playerChoice === 1 || playerChoice === 2 || playerChoice === 3 || playerChoice === 4) {
+    if (
+      playerChoice === 1 ||
+      playerChoice === 2 ||
+      playerChoice === 3 ||
+      playerChoice === 4
+    ) {
       if (playerChoice !== shipNumber) {
         throw new Error('You cannot invest in both teams')
       }
@@ -170,7 +205,9 @@ Game.prototype = {
       this.playerChoice.set(Blockchain.transaction.from, shipNumber)
     }
 
-    var currentGas = new BigNumber(this.gas.get(Blockchain.transaction.from) || 0)
+    var currentGas = new BigNumber(
+      this.gas.get(Blockchain.transaction.from) || 0
+    )
 
     if (currentGas <= 0 || distance > currentGas) {
       throw new Error('Required more gas')
@@ -179,18 +216,40 @@ Game.prototype = {
     var timeStamp = Date.now()
     var lastTransaction = this.lastTransaction.get(Blockchain.transaction.from)
 
-    if (lastTransaction + 3600000 < timeStamp) {
+    if (lastTransaction + 600000 < timeStamp) {
       this.lastTransaction.set(Blockchain.transaction.from, timeStamp)
-      this.gas.set(Blockchain.transaction.from, currentGas.minus(new BigNumber(distance)))
+      this.gas.set(
+        Blockchain.transaction.from,
+        currentGas.minus(new BigNumber(distance))
+      )
 
       this.players1Length = this.players1Length + 1
-      var previousPlayerBalance = this.playerBalance1.get(Blockchain.transaction.from)
-      this.playerBalance1.set(Blockchain.transaction.from, previousPlayerBalance + distance)
-      var previousDistance = this.distance.get(shipNumber)
-      var newDistance = disadvantage ? previousDistance - distance : previousDistance + distance
+      var previousPlayerBalance = new BigNumber(
+        this.playerBalance1.get(Blockchain.transaction.from) || 0
+      )
+      this.playerBalance1.set(
+        Blockchain.transaction.from,
+        previousPlayerBalance.plus(new BigNumber(distance))
+      )
+      var previousDistance = new BigNumber(this.distance.get(shipNumber) || 0)
+      var newDistance = disadvantage
+        ? previousDistance.minus(new BigNumber(distance))
+        : previousDistance.plus(new BigNumber(distance))
 
-      this.distance.set(shipNumber, newDistance < 0 ? 0 : newDistance)
+      this.distance.set(
+        shipNumber,
+        newDistance < 0 ? new BigNumber(0) : newDistance
+      )
       this.checkWinner(shipNumber)
+    }
+  },
+
+  suicide: function() {
+    if (this.owner != Blockchain.transaction.from) {
+      throw new Error('You are not authorized')
+    }
+    if (!Blockchain.transfer(this.owner, new BigNumber(this.globalBalance))) {
+      throw new Error('Transfer failed')
     }
   }
 }
