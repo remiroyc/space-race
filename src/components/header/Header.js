@@ -66,8 +66,7 @@ class Header extends React.Component {
   }
 
   updateQuantity(e) {
-    this.state = { quantity: e.target.value }
-    this.setState(this.state)
+    this.setState({ quantity: e.target.value })
   }
 
   render() {
